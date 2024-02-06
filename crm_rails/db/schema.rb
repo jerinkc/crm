@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_06_182725) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_06_184525) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "interactions", force: :cascade do |t|
+    t.bigint "sender_id", null: false
+    t.bigint "recipient_id", null: false
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipient_id"], name: "index_interactions_on_recipient_id"
+    t.index ["sender_id"], name: "index_interactions_on_sender_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email"
@@ -22,4 +32,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_06_182725) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "interactions", "users", column: "recipient_id"
+  add_foreign_key "interactions", "users", column: "sender_id"
 end
