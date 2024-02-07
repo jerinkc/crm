@@ -1,33 +1,22 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 import { CustomerList } from "./CustomerList"
 import { CustomerInteractionPanel } from "./CustomerInteractionPanel"
+import adminCustomerApis from "../../apis/admin/customers"
 
 export function AdminDashboard(){
-  const customers = [
-      {
-          id: 2,
-          email: "customer1@example.com",
-          full_name: "Customer 1"
-      },
-      {
-          id: 3,
-          email: "customer3@example.com",
-          full_name: "Customer 1"
-      },
-      {
-          id: 4,
-          email: "customer4@example.com",
-          full_name: "Customer 1"
-      }
-  ]
-  const [currentCustomer, setCurrentCustomer] = useState({
-    id: 2,
-    email: "customer1@example.com",
-    full_name: "Customer 1"
-  })
+  const [customers, setCustomers] = useState([])
+  const [currentCustomer, setCurrentCustomer] = useState({})
+
+  const { fetchCustomers } = adminCustomerApis;
+
+  useEffect(() => {
+    fetchCustomers()
+      .then(response => setCustomers(response.data))
+      .catch(error => console.error(error));
+  }, [])
+
   const handleCustomerSelect = (customer) => {
-    console.log(customer)
     setCurrentCustomer(customer)
   }
 
