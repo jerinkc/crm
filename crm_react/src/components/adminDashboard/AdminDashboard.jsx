@@ -1,5 +1,8 @@
+import { CustomerList } from "./CustomerList"
+import { useState } from "react"
+
 export function AdminDashboard(){
-  customers = [
+  const customers = [
       {
           id: 2,
           email: "customer1@example.com",
@@ -16,16 +19,25 @@ export function AdminDashboard(){
           full_name: "Customer 1"
       }
   ]
+  const [currentCustomer, setCurrentCustomer] = useState({
+    id: 2,
+    email: "customer1@example.com",
+    full_name: "Customer 1"
+  })
+  const handleCustomerSelect = (customer) => {
+    console.log(customer)
+    setCurrentCustomer(customer)
+  }
 
   return(
-    <div class="h-100 w-100">
-      <div class="row h-100">
-        <div class="col-12 col-md-3 bg-primary p-3 text-light">
-          <p>Customers section</p>
+    <div className="h-100 w-100">
+      <div className="row h-100">
+        <div className="col-12 col-md-3 bg-primary p-3 text-light">
+          <CustomerList customers={customers} handleCustomerSelect={handleCustomerSelect}/>
         </div>
-        <div class="col-12 col-md-9 overflow-hidden p-3">
-          <div class="row h-100">
-            <div class="col">
+        <div className="col-12 col-md-9 overflow-hidden p-3">
+          <div className="row h-100">
+            <div className="col">
               <p>Page Content</p>
             </div>
           </div>
