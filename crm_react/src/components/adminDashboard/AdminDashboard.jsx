@@ -1,35 +1,21 @@
-import { useState, useEffect } from "react"
+import { Outlet } from "react-router-dom"
 
 import { CustomerList } from "./CustomerList"
-import { CustomerInteractionPanel } from "./CustomerInteractionPanel"
-import adminCustomerApis from "../../apis/admin/customers"
+import { AdminDashboardContextProvider } from "../../contexts/AdminDashboardContext"
 
 export function AdminDashboard(){
-  const [customers, setCustomers] = useState([])
-  const [currentCustomer, setCurrentCustomer] = useState({})
-
-  const { fetchCustomers } = adminCustomerApis;
-
-  useEffect(() => {
-    fetchCustomers()
-      .then(response => setCustomers(response.data))
-      .catch(error => console.error(error));
-  }, [])
-
-  const handleCustomerSelect = (customer) => {
-    setCurrentCustomer(customer)
-  }
-
   return(
-    <div className="h-100 w-100">
-      <div className="row h-100">
-        <div className="col-12 col-md-3 bg-primary p-3 text-light">
-          <CustomerList customers={customers} handleCustomerSelect={handleCustomerSelect}/>
-        </div>
-        <div className="col-12 col-md-9 overflow-hidden p-3">
-          <CustomerInteractionPanel customer={ currentCustomer }/>
+    <AdminDashboardContextProvider>
+      <div className="h-100 w-100">
+        <div className="row h-100">
+          <div className="col-12 col-md-3 bg-primary p-3 text-light">
+            <CustomerList/>
+          </div>
+          <div className="col-12 col-md-9 overflow-hidden p-3">
+            <Outlet/>
+          </div>
         </div>
       </div>
-    </div>
+    </AdminDashboardContextProvider>
   )
 }

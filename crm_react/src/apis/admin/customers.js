@@ -5,9 +5,12 @@ const path = '/admin/customers'
 
 const fetchCustomers = () =>  api.get(path);
 
+const fetchCustomer = (customerId) =>  api.get(`${path}/${customerId}`);
+
 
 const adminCustomerApis = {
-  fetchCustomers
+  fetchCustomers,
+  fetchCustomer
 }
 
 export default adminCustomerApis

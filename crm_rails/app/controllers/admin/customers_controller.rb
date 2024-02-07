@@ -1,9 +1,11 @@
 class Admin::CustomersController < ApplicationController
-  before_action :set_customer, only: %i[update destroy]
+  before_action :set_customer, only: %i[show update destroy]
 
   def index
     @customers = Customer.all
   end
+
+  def show; end
 
   def create
     @customer = Customer.new(customer_params)
