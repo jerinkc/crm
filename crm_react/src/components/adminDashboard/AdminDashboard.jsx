@@ -1,5 +1,7 @@
-import { CustomerList } from "./CustomerList"
 import { useState } from "react"
+
+import { CustomerList } from "./CustomerList"
+import { CustomerInteractionPanel } from "./CustomerInteractionPanel"
 
 export function AdminDashboard(){
   const customers = [
@@ -36,11 +38,7 @@ export function AdminDashboard(){
           <CustomerList customers={customers} handleCustomerSelect={handleCustomerSelect}/>
         </div>
         <div className="col-12 col-md-9 overflow-hidden p-3">
-          <div className="row h-100">
-            <div className="col">
-              <p>Page Content</p>
-            </div>
-          </div>
+          <CustomerInteractionPanel customer={ currentCustomer }/>
         </div>
       </div>
     </div>
