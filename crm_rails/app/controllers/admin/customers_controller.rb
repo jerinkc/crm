@@ -1,11 +1,11 @@
 class Admin::CustomersController < ApplicationController
-  before_action :set_customer, only: %i[show update destroy]
-
   def index
     @customers = Customer.all
   end
 
-  def show; end
+  def show
+    @customer = Customer.includes(:contact).find(params[:id])
+  end
 
   def create
     @customer = Customer.new(customer_params)
@@ -18,6 +18,8 @@ class Admin::CustomersController < ApplicationController
   end
 
   def update
+    @customer = Customer.includes(:contact).find(params[:id])
+
     if @customer.update(customer_params)
       render :show
     else
@@ -26,6 +28,8 @@ class Admin::CustomersController < ApplicationController
   end
 
   def destroy
+    @customer = Customer.find(params[:id])
+
     if @customer.destroy
       render :show
     else
@@ -37,9 +41,5 @@ class Admin::CustomersController < ApplicationController
 
   def customer_params
     params.require(:customer).permit(:full_name, :email)
-  end
-
-  def set_customer
-    @customer = Customer.find(params[:id])
   end
 end
