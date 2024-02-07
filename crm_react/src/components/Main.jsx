@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AdminDashboard } from './adminDashboard/AdminDashboard'
 import { CustomerInteractionPanel } from "./adminDashboard/CustomerInteractionPanel"
 import { CustomerActionPanel } from "./adminDashboard/CustomerActionPanel"
+import { CustomerDetails } from "./adminDashboard/CustomerDetails"
 
 function Main() {
   const router = createBrowserRouter([
@@ -17,6 +18,10 @@ function Main() {
             {
               path: '',
               element: <CustomerInteractionPanel/>
+            },
+            {
+              path: 'about',
+              element: <CustomerDetails/>
             },
             {
               path: 'edit',
