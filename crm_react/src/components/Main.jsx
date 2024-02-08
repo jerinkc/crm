@@ -6,6 +6,7 @@ import { CustomerActionPanel } from "./adminDashboard/CustomerActionPanel"
 import { CustomerDetails } from "./adminDashboard/CustomerDetails"
 import { NewCustomer } from "./adminDashboard/NewCustomer";
 import { EditCustomer } from "./adminDashboard/EditCustomer";
+import { ConfirmCustomerDelete } from "./adminDashboard/ConfirmCustomerDelete";
 
 function Main() {
   const router = createBrowserRouter([
@@ -32,6 +33,10 @@ function Main() {
             {
               path: 'new',
               element: <NewCustomer/>
+            },
+            {
+              path: ':customerId/delete',
+              element: <ConfirmCustomerDelete/>
             }
           ]
         }

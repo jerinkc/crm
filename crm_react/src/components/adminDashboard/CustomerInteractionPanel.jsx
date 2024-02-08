@@ -32,6 +32,11 @@ export function CustomerInteractionPanel(){
                           Edit
                         </Link>
                       </li>
+                      <li className="nav-item">
+                        <Link to={ `${currentPath}/delete` } className="nav-link">
+                          Delete
+                        </Link>
+                      </li>
                     </ul>
                   </div>
                 </div>
