@@ -1,7 +1,7 @@
-const baseUrl = "http://localhost:3000"
+export const baseUrl = "http://localhost:3000"
 
 const headers = {
-  'Authorization': `Bearer `,
+  'Authorization': `Bearer ${localStorage.getItem('appToken')}`,
   'Accept': 'application/json',
   'Content-Type': 'application/json'
 }
@@ -10,6 +10,7 @@ function get(path){
   const url = baseUrl + path
 
   return fetch(url, { headers })
+    .then(response => ensureTokenValidity(response))
     .then(response => response.json())
 }
 
@@ -21,6 +22,7 @@ function post(path, payload = {}){
     headers,
     body: JSON.stringify(payload)
   })
+  .then(response => ensureTokenValidity(response))
   .then(response => response.json())
 }
 
@@ -32,6 +34,7 @@ function put(path, payload = {}){
     headers,
     body: JSON.stringify(payload)
   })
+  .then(response => ensureTokenValidity(response))
   .then(response => response.json())
 }
 
@@ -39,4 +42,13 @@ export const api = {
   get,
   post,
   put
+}
+
+
+function ensureTokenValidity(response){
+if( response.status != 401) return response
+
+  localStorage.removeItem('appToken')
+  localStorage.setItem('exitUrl', window.location.href)
+  window.location.href = '/login'
 }

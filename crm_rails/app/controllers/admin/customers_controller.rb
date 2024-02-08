@@ -1,4 +1,6 @@
 class Admin::CustomersController < ApplicationController
+  before_action :authorize_request
+
   def index
     @customers = Customer.all
   end
