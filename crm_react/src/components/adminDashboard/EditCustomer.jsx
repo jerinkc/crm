@@ -13,11 +13,12 @@ export function EditCustomer(){
 
   const { fetchCustomer } = adminCustomerApis
   const { setCurrentCustomer, customers, setCustomers, currentCustomer } = useAdminDashboardContext()
-  const customerId = currentCustomer?.id || parseInt(params.customerId)
 
   useEffect(() => {
-    const isContactAvailable = currentCustomer?.contact
-    if( !isContactAvailable ){
+    const customerId = params.customerId
+    const hasFullCustomerData = !!!currentCustomer?.contact
+
+    if( !hasFullCustomerData ){
       setLoading(true)
       fetchCustomer(customerId)
         .then(response => {

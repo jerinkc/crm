@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-import { useAdminDashboardContext } from "../../contexts/AdminDashboardContext";
 
 export function CustomerActionPanel(){
   return(

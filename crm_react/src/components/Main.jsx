@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { AdminDashboard } from './adminDashboard/AdminDashboard';
 import { CustomerInteractionPanel } from "./adminDashboard/CustomerInteractionPanel";

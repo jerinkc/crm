@@ -57,7 +57,7 @@ export const api = {
 
 
 function ensureTokenValidity(response){
-if( response.status != 401) return response
+if( response.status !== 401) return response
 
   localStorage.removeItem('appToken')
   localStorage.setItem('exitUrl', window.location.href)

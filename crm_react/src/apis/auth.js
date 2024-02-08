@@ -1,4 +1,4 @@
-import { baseUrl, headers } from "./api"
+import { baseUrl } from "./api"
 
 const path = '/auth/login'
 

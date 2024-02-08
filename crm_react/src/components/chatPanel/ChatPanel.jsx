@@ -24,7 +24,7 @@ export default function ChatPanel() {
                   onChange={(e) => setComponsedMessage(e.target.value)}
                   value ={ componsedMessage }></textarea>
                 <br />
-                <input type="submit" value="Send" className="btn btn-primary" />
+                <input type="submit" value="Send" className="btn btn-primary disabled" />
             </div>
           </form>
         </div>

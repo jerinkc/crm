@@ -40,6 +40,5 @@ To use the CRM application:
 
 Enhancements planned for future iterations:
 
-1. Implement delete functionality for customers within the admin dashboard.
-2. Develop an interaction pane and functionality for both administrators and customers to facilitate communication.
-3. Write comprehensive tests for both Rails and React components to ensure application stability and reliability.
+1. Develop an interaction pane and functionality for both administrators and customers to facilitate communication.
+2. Write comprehensive tests for both Rails and React components to ensure application stability and reliability.

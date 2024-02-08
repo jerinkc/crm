@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import { useParams, Link } from "react-router-dom"
 
 import { Customer } from './Customer'
