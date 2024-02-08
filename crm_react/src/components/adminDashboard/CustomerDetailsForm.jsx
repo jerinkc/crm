@@ -117,7 +117,7 @@ export function CustomerDetailsForm({ handleSuccess, customer }){
             </tr>
           </tbody>
         </table>
-        <input type="submit" value="submit"></input>
+        <input type="submit" value="submit" className="btn btn-primary"></input>
       </form>
     </>
   )
