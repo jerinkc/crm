@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom"
 
+import ChatPanel from "../chatPanel/ChatPanel"
 import { useAdminDashboardContext } from "../../contexts/AdminDashboardContext";
 
 export function CustomerInteractionPanel(){
@@ -43,16 +44,8 @@ export function CustomerInteractionPanel(){
               </div>
             </div>
 
-            <div className="row h-75 relative mt-3">
-              <div className="col-12 col-md-12 h-100">
-                Inteactions
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col-12 col-md-12">
-                Conversation text box
-              </div>
+            <div className="row h-100">
+              <ChatPanel/>
             </div>
           </>
         : null
