@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 
 import { Customer } from './Customer'
 import adminCustomerApis from "../../apis/admin/customers"
 import { useAdminDashboardContext } from "../../contexts/AdminDashboardContext"
 
 export function CustomerList(){
-  const [customers, setCustomers] = useState([])
   const params = useParams()
 
   const { fetchCustomers } = adminCustomerApis
-  const { setCurrentCustomer } = useAdminDashboardContext()
+  const { setCurrentCustomer, customers, setCustomers } = useAdminDashboardContext()
   const customerId = parseInt(params.customerId)
 
   useEffect(() => {
@@ -27,8 +26,25 @@ export function CustomerList(){
   return(
     <div>
       {
-        customers.map((customer) => <Customer key={customer.id}
-          customer={customer}/>)
+        <>
+          <div className="row">
+            <div className="col-12">
+              <nav className="nav justify-content-end">
+                <Link to="/admin/customers/new"
+                  className="btn btn-light">Add Customer</Link>
+              </nav>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-12">
+              {
+                customers.map((customer) => <Customer key={customer.id}
+                  customer={customer}/>)
+              }
+            </div>
+          </div>
+        </>
+
       }
     </div>
   )

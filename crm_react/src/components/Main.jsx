@@ -4,6 +4,7 @@ import { AdminDashboard } from './adminDashboard/AdminDashboard'
 import { CustomerInteractionPanel } from "./adminDashboard/CustomerInteractionPanel"
 import { CustomerActionPanel } from "./adminDashboard/CustomerActionPanel"
 import { CustomerDetails } from "./adminDashboard/CustomerDetails"
+import { NewCustomer } from "./adminDashboard/NewCustomer";
 
 function Main() {
   const router = createBrowserRouter([
@@ -12,20 +13,24 @@ function Main() {
       element: <AdminDashboard/>,
       children: [
         {
-          path: 'customers/:customerId',
+          path: 'customers',
           element: <CustomerActionPanel/>,
           children: [
             {
-              path: '',
+              path: ':customerId',
               element: <CustomerInteractionPanel/>
             },
             {
-              path: 'about',
+              path: ':customerId/about',
               element: <CustomerDetails/>
             },
             {
-              path: 'edit',
+              path: ':customerId/edit',
               element: <h1>CustomerEditPanel</h1>
+            },
+            {
+              path: 'new',
+              element: <NewCustomer/>
             }
           ]
         }

@@ -13,14 +13,15 @@ function get(path){
     .then(response => response.json())
 }
 
-function post({ path, payload = {} }){
+function post(path, payload = {}){
   const url = baseUrl + path
 
   return fetch(url, {
     method: 'POST',
     headers,
-    body: payload
+    body: JSON.stringify(payload)
   })
+  .then(response => response.json())
 }
 
 export const api = {
