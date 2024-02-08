@@ -24,7 +24,19 @@ function post(path, payload = {}){
   .then(response => response.json())
 }
 
+function put(path, payload = {}){
+  const url = baseUrl + path
+
+  return fetch(url, {
+    method: 'PUT',
+    headers,
+    body: JSON.stringify(payload)
+  })
+  .then(response => response.json())
+}
+
 export const api = {
   get,
-  post
+  post,
+  put
 }

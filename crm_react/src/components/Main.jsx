@@ -5,6 +5,7 @@ import { CustomerInteractionPanel } from "./adminDashboard/CustomerInteractionPa
 import { CustomerActionPanel } from "./adminDashboard/CustomerActionPanel"
 import { CustomerDetails } from "./adminDashboard/CustomerDetails"
 import { NewCustomer } from "./adminDashboard/NewCustomer";
+import { EditCustomer } from "./adminDashboard/EditCustomer";
 
 function Main() {
   const router = createBrowserRouter([
@@ -26,7 +27,7 @@ function Main() {
             },
             {
               path: ':customerId/edit',
-              element: <h1>CustomerEditPanel</h1>
+              element: <EditCustomer/>
             },
             {
               path: 'new',

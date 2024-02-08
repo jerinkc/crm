@@ -28,10 +28,9 @@ export function CustomerInteractionPanel(){
                   <div className="col-md-4">
                     <ul className="nav justify-content-end">
                       <li className="nav-item">
-                        <a className="nav-link active" href="#">Active</a>
-                      </li>
-                      <li className="nav-item">
-                        <a className="nav-link" href="#">Link</a>
+                        <Link to={ `${currentPath}/edit` } className="nav-link">
+                          Edit
+                        </Link>
                       </li>
                     </ul>
                   </div>

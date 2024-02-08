@@ -2,15 +2,14 @@ import { useState } from "react"
 
 import adminCustomerApis from "../../apis/admin/customers"
 
-export function CustomerDetailsForm({ handleSuccess }){
+export function CustomerDetailsForm({ handleSuccess, customer }){
   const initialValues = {
-    email: '',
-    full_name: '',
-    phone: '',
-    address: ''
+    email: customer ? customer.email : '',
+    full_name: customer ? customer.full_name : '',
+    phone: customer?.contact ? customer.contact.phone : '',
+    address: customer?.contact ? customer.contact.address : ''
   }
-  const { createCustomer } = adminCustomerApis
-
+  const { createCustomer, updateCustomer } = adminCustomerApis
 
   const [formData, setFormData] = useState(initialValues)
   const [errors, setErrors] = useState(null)
@@ -37,17 +36,28 @@ export function CustomerDetailsForm({ handleSuccess }){
     event.preventDefault()
 
     const requestData = transformedData()
-    createCustomer(requestData)
-      .then(response => {
-        if(response.errors?.length >= 1)
-          throw new Error(response.errors)
-        else{
-          const newCustomer = response.data
-          handleSuccess(newCustomer)
-        }
-      })
-      .catch(err => setErrors(err.message))
 
+    customer
+      ? updateCustomer(customer.id, requestData)
+          .then(response => {
+            if(response.errors?.length >= 1)
+              throw new Error(response.errors)
+            else{
+              const updatedCustomer = response.data
+              handleSuccess(updatedCustomer)
+            }
+          })
+        .catch(err => setErrors(err.message))
+      : createCustomer(requestData)
+          .then(response => {
+            if(response.errors?.length >= 1)
+              throw new Error(response.errors)
+            else{
+              const newCustomer = response.data
+              handleSuccess(newCustomer)
+            }
+          })
+          .catch(err => setErrors(err.message))
   }
 
   return(
@@ -98,7 +108,7 @@ export function CustomerDetailsForm({ handleSuccess }){
               <td>
                 <textarea
                   name="address"
-                  value={formData.message}
+                  value={formData.address}
                   onChange={handleChange}
                   rows={4}
                   className="w-100"
