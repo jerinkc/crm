@@ -38,10 +38,21 @@ function put(path, payload = {}){
   .then(response => response.json())
 }
 
+function destroy(path){
+  const url = baseUrl + path
+
+  return fetch(url, {
+    method: 'DELETE',
+    headers
+  }).then(response => ensureTokenValidity(response))
+    .then(response => response.json())
+}
+
 export const api = {
   get,
   post,
-  put
+  put,
+  destroy
 }
 
 

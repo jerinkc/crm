@@ -43,6 +43,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_08_105644) do
   end
 
   add_foreign_key "contacts", "users", column: "customer_id"
-  add_foreign_key "interactions", "users", column: "recipient_id"
-  add_foreign_key "interactions", "users", column: "sender_id"
+  add_foreign_key "interactions", "users", column: "recipient_id", on_delete: :cascade
+  add_foreign_key "interactions", "users", column: "sender_id", on_delete: :cascade
 end

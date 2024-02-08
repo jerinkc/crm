@@ -1,5 +1,5 @@
 class Customer < User
-  has_one :contact
+  has_one :contact, dependent: :destroy
 
   validates :email, :full_name, :contact, presence: true
   validates :email, uniqueness: true

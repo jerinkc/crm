@@ -11,11 +11,14 @@ const createCustomer = (customer) => api.post(path, customer)
 
 const updateCustomer = (customerId, customer) => api.put(`${path}/${customerId}`, customer)
 
+const deleteCustomer = (customerId) =>  api.destroy(`${path}/${customerId}`);
+
 const adminCustomerApis = {
   fetchCustomers,
   fetchCustomer,
   createCustomer,
-  updateCustomer
+  updateCustomer,
+  deleteCustomer
 }
 
 export default adminCustomerApis

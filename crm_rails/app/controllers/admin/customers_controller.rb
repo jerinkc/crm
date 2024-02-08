@@ -36,7 +36,6 @@ class Admin::CustomersController < ApplicationController
   def destroy
     @customer = Customer.find(params[:id])
 
-
     if @customer.destroy
       render :show
     else
