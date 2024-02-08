@@ -9,10 +9,10 @@ export function ConfirmCustomerDelete(){
   return(
     <>
       <CustomerDetails/>
-      <div class="card">
-        <div class="card-body">
+      <div className="card">
+        <div className="card-body">
           Please confirm to delete<br/><br/>
-          <button type="button" class="btn btn-danger disabled">Danger</button>
+          <button type="button" className="btn btn-danger disabled">Danger</button>
         </div>
       </div>
     </>
