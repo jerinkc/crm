@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Link } from "react-router-dom";
 
 import { AdminDashboard } from './adminDashboard/AdminDashboard';
 import { CustomerInteractionPanel } from "./adminDashboard/CustomerInteractionPanel";
@@ -10,7 +10,15 @@ import { ConfirmCustomerDelete } from "./adminDashboard/ConfirmCustomerDelete";
 import { Login } from "./auth/Login";
 
 function NotFound() {
-  return <h1>404 - Page Not Found</h1>;
+  return (
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      <div className="col-md-6 text-center">
+        <h1>404 - Page Not Found</h1>
+        <p>Here are some helpful links:</p>
+        <Link to='/admin' className="">Admin</Link>
+      </div>
+    </div>
+  );
 }
 
 function Main() {
