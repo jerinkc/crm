@@ -21,7 +21,7 @@ Follow these steps to set up the CRM application on your local machine:
 2. Open separate terminals for the `crm_rails` and `crm_react` directories.
 3. Start the frontend React app by running `npm start` within the `crm_react` directory.
 4. Install dependencies for the backend Rails app using `bundle install` within the `crm_rails` directory.
-5. Set up the database by running `rails db:create db:migrate db:seed`.
+5. Set up the database by running `rails db:create db:migrate`.
 6. Seed the database with initial data using `rails db:seed`.
 7. Launch the Rails backend server with `rails s`.
 
