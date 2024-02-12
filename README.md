@@ -29,7 +29,7 @@ Follow these steps to set up the CRM application on your local machine:
 
 To use the CRM application:
 
-1. Access the application through `http://localhost:3000` in your web browser.
+1. Access the application through `http://localhost:3001/admin` in your web browser.
 2. Log in using the default credentials: `admin@example.com` for email and `password` for the password.
 3. View all customers listed on the left-hand side of the application.
 4. Select a customer from the panel to interact with their details.
