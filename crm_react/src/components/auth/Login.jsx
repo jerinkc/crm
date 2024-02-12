@@ -1,12 +1,22 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import authApis from "../../apis/auth"
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export function Login(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate()
+    const location = useLocation()
+    const exitPath = localStorage.getItem('exitPath')
+
+    const defaultLoggedInUrl = "/admin"
+
+    useEffect(() => {
+      if( localStorage.getItem('appToken') ) navigate(defaultLoggedInUrl);
+    }, [])
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -19,10 +29,10 @@ export function Login(){
             const { token } = response
 
             if( token ){
-              const exitUrl = localStorage.getItem('exitUrl')
-              localStorage.removeItem('exitUrl')
+              localStorage.removeItem('exitPath')
               localStorage.setItem('appToken', token)
-              window.location.href= exitUrl || '/admin/customers'
+              console.log('stored', localStorage.getItem('appToken'))
+              navigate(exitPath === '/login' ? defaultLoggedInUrl : exitPath)
             }else{
               setError(response.message)
             }
