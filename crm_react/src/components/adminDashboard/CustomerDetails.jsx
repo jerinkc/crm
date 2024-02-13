@@ -2,17 +2,17 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { useAdminDashboardContext } from "../../contexts/AdminDashboardContext";
-import adminCustomerApis from "../../apis/admin/customers"
+import { useTokenizedApiServiceContext } from "../../contexts/TokenizedApiServiceContextProvider";
 
 export function CustomerDetails(){
   const params = useParams()
 
   const { currentCustomer, setCurrentCustomer } = useAdminDashboardContext()
-  const { fetchCustomer } = adminCustomerApis
   const customerId = currentCustomer?.id || parseInt(params.customerId)
+  const { get } = useTokenizedApiServiceContext()
 
   useEffect(() => {
-    fetchCustomer(customerId)
+    get(`/admin/customers/${customerId}`)
       .then(response => {
         setCurrentCustomer(response.data)
       })

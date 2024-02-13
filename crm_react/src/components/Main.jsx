@@ -12,7 +12,7 @@ function Main() {
   return (
     // <IntlProvider locale={locale} key={locale} messages={messages}>
       // <FormattedMessage id="welcomeMessage" defaultMessage="Welcome!" />
-      <RouterProvider router={router} />
+    <RouterProvider router={router} />
     // </IntlProvider>
   );
 }

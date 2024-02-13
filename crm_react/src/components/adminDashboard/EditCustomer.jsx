@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 
 import { CustomerDetailsForm } from "./CustomerDetailsForm"
 import { useAdminDashboardContext } from "../../contexts/AdminDashboardContext"
-import adminCustomerApis from "../../apis/admin/customers"
+import { useTokenizedApiServiceContext } from "../../contexts/TokenizedApiServiceContextProvider"
 
 
 export function EditCustomer(){
@@ -11,16 +11,16 @@ export function EditCustomer(){
   const params = useParams()
   const [loading, setLoading] = useState(false)
 
-  const { fetchCustomer } = adminCustomerApis
+  const { get } = useTokenizedApiServiceContext()
   const { setCurrentCustomer, customers, setCustomers, currentCustomer } = useAdminDashboardContext()
 
   useEffect(() => {
     const customerId = params.customerId
-    const hasFullCustomerData = !!!currentCustomer?.contact
+    const hasFullCustomerData = !!currentCustomer?.contact
 
     if( !hasFullCustomerData ){
       setLoading(true)
-      fetchCustomer(customerId)
+      get(`/admin/customers/${customerId}`)
         .then(response => {
           setCurrentCustomer(response.data)
           setLoading(false)

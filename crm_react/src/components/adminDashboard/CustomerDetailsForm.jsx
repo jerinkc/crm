@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-import adminCustomerApis from "../../apis/admin/customers"
+import { useTokenizedApiServiceContext } from "../../contexts/TokenizedApiServiceContextProvider";
 
 export function CustomerDetailsForm({ handleSuccess, customer }){
   const initialValues = {
@@ -9,7 +9,7 @@ export function CustomerDetailsForm({ handleSuccess, customer }){
     phone: customer?.contact ? customer.contact.phone : '',
     address: customer?.contact ? customer.contact.address : ''
   }
-  const { createCustomer, updateCustomer } = adminCustomerApis
+  const { post, put } = useTokenizedApiServiceContext()
 
   const [formData, setFormData] = useState(initialValues)
   const [errors, setErrors] = useState(null)
@@ -38,7 +38,7 @@ export function CustomerDetailsForm({ handleSuccess, customer }){
     const requestData = transformedData()
 
     customer
-      ? updateCustomer(customer.id, requestData)
+      ? put(`/admin/customers/${customer.id}`, requestData)
           .then(response => {
             if(response.errors?.length >= 1)
               throw new Error(response.errors)
@@ -48,7 +48,7 @@ export function CustomerDetailsForm({ handleSuccess, customer }){
             }
           })
         .catch(err => setErrors(err.message))
-      : createCustomer(requestData)
+      : post(`/admin/customers`, requestData)
           .then(response => {
             if(response.errors?.length >= 1)
               throw new Error(response.errors)

@@ -1,8 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import authApis from "../../apis/auth"
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuthContextProvider } from "../../contexts/AuthContextProvider"
 
 export function Login(){
     const [email, setEmail] = useState('');
@@ -10,13 +11,12 @@ export function Login(){
     const [error, setError] = useState('');
     const navigate = useNavigate()
     const location = useLocation()
+
+    const authContextProviderStore = useAuthContextProvider()
+
     const exitPath = localStorage.getItem('exitPath')
 
     const defaultLoggedInUrl = "/admin"
-
-    useEffect(() => {
-      if( localStorage.getItem('appToken') ) navigate(defaultLoggedInUrl);
-    }, [])
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -26,17 +26,13 @@ export function Login(){
 
         login(credentials)
           .then((response) => {
-            const { token } = response
-
-            if( token ){
-              localStorage.removeItem('exitPath')
-              localStorage.setItem('appToken', token)
-              console.log('stored', localStorage.getItem('appToken'))
-              navigate(exitPath === '/login' ? defaultLoggedInUrl : exitPath)
-            }else{
-              setError(response.message)
-            }
+            const { token, message } = response
+            if( token )
+                authContextProviderStore.login(token)
+            else
+                setError(message)
           })
+          .catch(err => console.log(err))
     };
 
     return (

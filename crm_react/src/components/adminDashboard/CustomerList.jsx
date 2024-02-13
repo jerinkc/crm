@@ -2,18 +2,18 @@ import { useEffect } from "react"
 import { useParams, Link } from "react-router-dom"
 
 import { Customer } from './Customer'
-import adminCustomerApis from "../../apis/admin/customers"
 import { useAdminDashboardContext } from "../../contexts/AdminDashboardContext"
+import { useTokenizedApiServiceContext } from "../../contexts/TokenizedApiServiceContextProvider"
 
 export function CustomerList(){
   const params = useParams()
 
-  const { fetchCustomers } = adminCustomerApis
+  const { get } = useTokenizedApiServiceContext()
   const { setCurrentCustomer, customers, setCustomers } = useAdminDashboardContext()
   const customerId = parseInt(params.customerId)
 
   useEffect(() => {
-    fetchCustomers()
+    get('/admin/customers')
       .then(response => {
         const responseData = response.data
         const currentCustomer = responseData.find((customer) => customer.id === customerId)
