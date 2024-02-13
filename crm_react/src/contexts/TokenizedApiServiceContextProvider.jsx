@@ -1,10 +1,11 @@
 import { createContext, useContext } from "react";
+
 import { useAuthContextProvider } from "./AuthContextProvider";
+import { API_URL } from "../constants";
 
 const TokenizedApiServiceContext = createContext();
 
 export function TokenizedApiServiceContextProvider({ children }){
-  const storedToken = localStorage.getItem('authToken')
   const { authToken, logout } = useAuthContextProvider()
 
   const baseUrl = "http://localhost:3000"
@@ -16,7 +17,7 @@ export function TokenizedApiServiceContextProvider({ children }){
   // if( authToken ) headers['Authorization'] = `Bearer ${authToken}`
 
   const request = (path, payload = {}) => {
-    const url = baseUrl + path
+    const url = API_URL + path
 
     return fetch(url, {
       ...payload,
@@ -62,6 +63,7 @@ export function TokenizedApiServiceContextProvider({ children }){
   }
 
   const TokenizedApiServiceContextStore = {
+    baseUrl,
     get,
     post,
     put,

@@ -1,34 +1,34 @@
 
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
 
-import authApis from "../../apis/auth"
 import { useAuthContextProvider } from "../../contexts/AuthContextProvider"
+import { API_URL } from "../../constants";
 
 export function Login(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const navigate = useNavigate()
-    const location = useLocation()
 
-    const authContextProviderStore = useAuthContextProvider()
-
-    const exitPath = localStorage.getItem('exitPath')
-
-    const defaultLoggedInUrl = "/admin"
+    const { login } = useAuthContextProvider()
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        const { login } = authApis
         const credentials = { email, password }
 
-        login(credentials)
+        return fetch(`${API_URL}/auth/login`, {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(credentials)
+        })
+          .then(response => response.json())
           .then((response) => {
             const { token, message } = response
             if( token )
-                authContextProviderStore.login(token)
+                login(token)
             else
                 setError(message)
           })

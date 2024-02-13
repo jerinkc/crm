@@ -41,11 +41,7 @@ const adminRoutes = [
     path: 'admin',
     element: <AdminDashboard />,
     children: routes
-  },
-  // {
-  //   path: 'login',
-  //   element: <Login />
-  // },
+  }
 ]
 
 export default adminRoutes;

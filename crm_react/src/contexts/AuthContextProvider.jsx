@@ -24,14 +24,16 @@ export const AuthContextProvider = ({ children }) => {
 
   const login = (token) => {
     addToken(token)
-    const exitPath = localStorage.getItem('exitPath')
     const defaultLoggedInUrl = "/admin"
     localStorage.removeItem('exitPath')
     navigate(defaultLoggedInUrl)
   }
 
-  const logout = () => {
+  const logout = (manual = false) => {
     removeToken()
+
+    if( manual ) return // manual(clicking logout button) - does not redirect to last known page
+
     const currentPath = location.pathname
     localStorage.setItem('exitPath', currentPath)
   }
@@ -48,9 +50,7 @@ export const AuthContextProvider = ({ children }) => {
   return (
     <AuthContext.Provider value={authContextProviderStore}>
       {
-        authToken
-         ? children
-         : <Login/>
+        authToken ? children : <Login/>
       }
     </AuthContext.Provider>
   );
