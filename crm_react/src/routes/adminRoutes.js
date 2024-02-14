@@ -1,6 +1,6 @@
 import { AdminDashboard } from '../components/adminDashboard/AdminDashboard';
 import { CustomerInteractionPanel } from "../components/adminDashboard/CustomerInteractionPanel";
-import { CustomerActionPanel } from "../components/adminDashboard/CustomerActionPanel";
+import { Admin } from "../components/admin/Admin";
 import { CustomerDetails } from "../components/adminDashboard/CustomerDetails";
 import { NewCustomer } from "../components/adminDashboard/NewCustomer";
 import { EditCustomer } from "../components/adminDashboard/EditCustomer";
@@ -9,37 +9,41 @@ import { Login } from "../components/auth/Login";
 
 const routes = [
   {
-    path: 'customers',
-    element: <CustomerActionPanel/>,
+    path: '',
+    element: <AdminDashboard/>,
     children: [
       {
-        path: ':customerId',
+        path: 'customers/:customerId',
         element: <CustomerInteractionPanel />
       },
       {
-        path: ':customerId/about',
+        path: 'customers/:customerId/about',
         element: <CustomerDetails />
       },
       {
-        path: ':customerId/edit',
+        path: 'customers/:customerId/edit',
         element: <EditCustomer />
       },
       {
-        path: 'new',
+        path: 'customers/new',
         element: <NewCustomer />
       },
       {
-        path: ':customerId/delete',
+        path: 'customers/:customerId/delete',
         element: <ConfirmCustomerDelete />
       },
     ],
+  },
+  {
+    path: 'login',
+    element: <Login/>
   },
 ]
 
 const adminRoutes = [
   {
     path: 'admin',
-    element: <AdminDashboard />,
+    element: <Admin/>,
     children: routes
   }
 ]
