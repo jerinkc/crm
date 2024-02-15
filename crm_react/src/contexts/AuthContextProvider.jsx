@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Login } from '../components/auth/Login';
 
 const AuthContext = createContext();
 
@@ -36,6 +35,7 @@ export const AuthContextProvider = ({ children }) => {
 
     const currentPath = location.pathname
     localStorage.setItem('exitPath', currentPath)
+    navigate('/admin/login')
   }
 
   const authContextProviderStore = {
@@ -49,9 +49,7 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={authContextProviderStore}>
-      {
-        authToken ? children : <Login/>
-      }
+      { children }
     </AuthContext.Provider>
   );
 };
