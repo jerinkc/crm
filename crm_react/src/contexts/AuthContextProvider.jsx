@@ -33,7 +33,6 @@ export const AuthContextProvider = ({ children }) => {
   }
 
   const logout = (manual = false) => {
-    console.log('logout', authUserInfo, localStorage.getItem('authenticatedUserInfo').authToken, localStorage.getItem('authenticatedUserInfo').authUserInfo)
     removeToken()
     setAuthUserInfo({})
 
