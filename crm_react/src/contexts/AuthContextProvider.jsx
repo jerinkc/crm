@@ -4,14 +4,16 @@ import { useLocation, useNavigate } from 'react-router-dom';
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  const storedToken = localStorage.getItem('authToken')
-  const [authToken, setAuthToken] = useState(storedToken)
+  const storedAuthenticatedUserInfo = localStorage.getItem('authenticatedUserInfo') || {}
+  const [authToken, setAuthToken] = useState(storedAuthenticatedUserInfo.authToken)
+  const [authUserInfo, setAuthUserInfo] = useState(storedAuthenticatedUserInfo.authUserInfo || {})
   const location = useLocation()
   const navigate = useNavigate()
 
   useEffect(() => {
-    localStorage.setItem('authToken', authToken)
-  }, [authToken])
+    const authenticatedUserInfo = { authToken, authUserInfo }
+    localStorage.setItem('authenticatedUserInfo', authenticatedUserInfo)
+  }, [authToken, authUserInfo])
 
   const removeToken = () => {
     setAuthToken(null)
@@ -21,15 +23,19 @@ export const AuthContextProvider = ({ children }) => {
     setAuthToken(token)
   }
 
-  const login = (token) => {
+  const login = (token, userInfo) => {
     addToken(token)
+    setAuthUserInfo(userInfo)
     const defaultLoggedInUrl = "/admin"
+    const lastKnownPath = localStorage.getItem('exitPath')
     localStorage.removeItem('exitPath')
-    navigate(defaultLoggedInUrl)
+    navigate(lastKnownPath || defaultLoggedInUrl)
   }
 
   const logout = (manual = false) => {
+    console.log('logout', authUserInfo, localStorage.getItem('authenticatedUserInfo').authToken, localStorage.getItem('authenticatedUserInfo').authUserInfo)
     removeToken()
+    setAuthUserInfo({})
 
     if( manual ) return // manual(clicking logout button) - does not redirect to last known page
 
@@ -41,6 +47,7 @@ export const AuthContextProvider = ({ children }) => {
   const authContextProviderStore = {
     authToken,
     setAuthToken,
+    authUserInfo,
     addToken,
     removeToken,
     login,

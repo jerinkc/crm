@@ -2,11 +2,7 @@ class InteractionsController < ApplicationController
   before_action :authorize_request
 
   def index
-    @interactions = Interaction.select(:content)
-                               .includes(
-                                 sender: [:id, :full_name, :type],
-                                 recipient: [:id, :full_name]
-                               )
+    @interactions = Interaction.includes(:sender, :recipient)
   end
 
   def create

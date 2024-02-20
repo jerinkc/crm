@@ -26,9 +26,9 @@ export function Login(){
         })
           .then(response => response.json())
           .then((response) => {
-            const { token, message } = response
+            const { token, message, user } = response
             if( token )
-                login(token)
+                login(token, user)
             else
                 setError(message)
           })

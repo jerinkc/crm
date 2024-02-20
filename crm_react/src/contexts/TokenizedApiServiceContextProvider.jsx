@@ -29,10 +29,10 @@ export function TokenizedApiServiceContextProvider({ children }){
         throw(response.error)
       }
       else{
-        return response
+        return response.json()
       }
     })
-    .then(response => response.json())
+    .catch(response => console.log(response))
   }
 
   const get = (path) => {

@@ -7,7 +7,11 @@ class AuthenticationsController < ApplicationController
     if user&.authenticate(login_params[:password])
       token = JsonWebToken.encode(user_id: user.id)
       render json: {
-        user: { email: user.email, type: user.type },
+        user: {
+          id: user.id,
+          email: user.email,
+          type: user.type
+        },
         token:
       }, status: :accepted
     else

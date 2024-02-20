@@ -1,29 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Interaction } from "./Interaction"
 import { useTokenizedApiServiceContext } from "../../contexts/TokenizedApiServiceContextProvider"
 import { useAdminDashboardContext } from "../../contexts/AdminDashboardContext"
+import { useAuthContextProvider } from "../../contexts/AuthContextProvider";
 
 export default function ChatPanel() {
-  const interactionsDummy = [
-    {
-      sender: {
-        id: 1,
-        full_name: 'Admin 1',
-        type: 'Admin'
-      },
-      recipient: {
-        id: 1,
-        full_name: 'Customer'
-      },
-      content: 'content 1'
-    }
-  ]
   const [interactions, setInteractions] = useState([]);
   const [message, setMessage] = useState('')
 
-  const { post } = useTokenizedApiServiceContext()
+  const { post, get } = useTokenizedApiServiceContext()
+  const { authUserInfo } = useAuthContextProvider()
   const { currentCustomer }= useAdminDashboardContext()
+
+  const { id } = authUserInfo
+
+  useEffect(() => {
+    get('/interactions')
+      .then(response => {
+        setInteractions(response.data)
+      })
+  }, [])
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -36,14 +33,28 @@ export default function ChatPanel() {
     }
 
     post('/interactions', data)
-      .then(response => console.log(response))
+      .then(response => {
+        const { interaction } = response.data
+        setInteractions([...interactions, interaction])
+        setMessage('')
+      })
   };
 
   return (
     <>
       <div className="row h-75 relative mt-3 w-100">
-        <div className="col-12 col-md-12 h-100 w-100">
-          <Interaction currentUser={ true }/>
+        <div className="col-12 col-md-12 h-100 w-100 overflow-scroll">
+          {
+            interactions.map((interaction, index) => {
+              return (
+                <Interaction
+                  key={index}
+                  currentUser={ interaction.sender.id === id } //currentAdmin.id
+                  content={interaction.content}
+                />
+              )
+            })
+          }
         </div>
       </div>
 
